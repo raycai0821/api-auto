@@ -1,5 +1,6 @@
 package testcase.test;
-import common.utils.RequestUtil;
+
+import common.utils.RequestDataUtil;
 import org.testng.annotations.Test;
 
 /**
@@ -11,6 +12,6 @@ public class test {
 
     @Test
     public void test(){
-        RequestUtil.requestSwagger();
+        RequestDataUtil.getApiData("swagger");
     }
 }

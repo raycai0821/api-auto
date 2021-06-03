@@ -17,9 +17,13 @@ import static io.restassured.RestAssured.get;
  * @description
  * @time: 2021/6/3 14:23
  **/
-public class RequestUtil extends TestBase {
-
-    public static String requestSwagger() {
+public class RequestDataUtil extends TestBase {
+    /**
+     * 接口测试数据来源
+     * @param src
+     * @return
+     */
+    public static String getApiData(String src) {
         //加载配置文件
         init();
         //使用配置文件的swagger地址
