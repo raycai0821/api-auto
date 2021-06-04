@@ -1,6 +1,6 @@
 package testcase.test;
 
-import common.utils.RequestDataUtil;
+import data.SrcDataProcesser;
 import org.testng.annotations.Test;
 
 /**
@@ -12,6 +12,6 @@ public class test {
 
     @Test
     public void test(){
-        RequestDataUtil.getApiData("swagger");
+        SrcDataProcesser.JsondataProcess();
     }
 }
