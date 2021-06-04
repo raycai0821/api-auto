@@ -4,9 +4,7 @@ import base.TestBase;
 import cn.hutool.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import static io.restassured.path.json.JsonPath.from;
 
@@ -24,23 +22,10 @@ public class JsonParseUtils extends TestBase {
      * @param node
      * @return map
      */
-    public static Set<Map.Entry<String, Object>> JsonExtract(JSONObject jsonObject, String node) {
-        //加载配置文件
+    public static Map JsonExtractByNode(JSONObject jsonObject, String node) {
 
-        //将path节点下的转成对象
-        JSONObject jsonObjectPaths = (JSONObject) jsonObject.get(node);
-        //paths下的节点转成set
-        return jsonObjectPaths.entrySet();
-        //遍历paths下的所有节点
-//        Iterator<Map.Entry<String, Object>> it = entries.iterator();
-//
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        while (it.hasNext()) {
-//            Map.Entry<String, Object> next = it.next();
-//            map.put(next.getKey(), next.getValue());
-//        }
-//
-//        return map;
+        return jsonObject.get(node, Map.class);
+
     }
 
     /**
@@ -50,20 +35,54 @@ public class JsonParseUtils extends TestBase {
      * @return
      */
 
-    public static String getSchema(JSONObject jsonObject, String schemanode) {
+    public static String getSchemaName(JSONObject jsonObject, String schemaNode) {
         //获取sheme里的字段值
-        String scheme = from(jsonObject.toString()).getString(schemanode);
-        return scheme;
+        return from(jsonObject.toString()).getString(schemaNode);
     }
 
-    public static JSONObject getDefinition(Set<Map.Entry<String, Object>> set, String definitionNode) {
-        Iterator<Map.Entry<String, Object>> it = set.iterator();
-        Map<String, Object> definitionMap = new HashMap<String, Object>();
-        while (it.hasNext()) {
-            Map.Entry<String, Object> next = it.next();
-            definitionMap.put(next.getKey(), next.getValue());
+    /**
+     * 通过shema获取对应definiationd的json对象
+     *
+     * @param schemaName
+     * @return
+     */
+
+    public static JSONObject getSchemaDef(String schemaName) {
+        Map<String, JSONObject> defNodeMap = JsonParseUtils.JsonExtractByNode(jsonObject, "definitions");
+        return defNodeMap.get(schemaName);
+    }
+
+    /**
+     *
+     * 获取definition中指定对象
+     * @param colName
+     * @param schemaName
+     * @return
+     */
+    public static JSONObject getDefData(String colName, String schemaName){
+        return (JSONObject)getSchemaDef(schemaName).getByPath(colName);
+    }
+
+    /**
+     * 请求swagger，并将pathurl+schema进行返回,一个url对应一个schema
+     *
+     * @return pathSchemaMap
+     */
+
+    public static Map<String, String> getPathSchema() {
+        //获取SWAGGER返回接口参数
+        //截取paths节点数据
+        Map<String, JSONObject> pathNodeMap = JsonParseUtils.JsonExtractByNode(jsonObject, "paths");
+        Map<String, String> pathSchemaMap = new HashMap<String, String>();
+        for (Map.Entry<String, JSONObject> entry1 : pathNodeMap.entrySet()) {
+            JSONObject entryObj = entry1.getValue();
+            String schema = JsonParseUtils.getSchemaName(entryObj, "post.parameters.schema.$ref");
+            //将url作为key，schema作为value存入map
+            pathSchemaMap.put(entry1.getKey(), schema);
+            System.out.println("schema=" + schema);
         }
-        return (JSONObject) definitionMap.get("definitionNode");
+        return pathSchemaMap;
 
     }
+
 }

@@ -1,6 +1,8 @@
 package testcase.test;
 
-import data.SrcDataProcesser;
+import base.TestBase;
+import common.utils.JsonParseUtils;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -8,10 +10,16 @@ import org.testng.annotations.Test;
  * @description
  * @time: 2021/6/3 14:44
  **/
-public class test {
+public class test extends TestBase {
+
+    @BeforeTest
+    public void setUp(){
+        init();
+    }
 
     @Test
     public void test(){
-        SrcDataProcesser.JsondataProcess();
+        JsonParseUtils.getDefData("required", "CollectionAccountApiReq");
+        System.out.println("22");
     }
 }

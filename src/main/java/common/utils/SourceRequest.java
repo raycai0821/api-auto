@@ -14,14 +14,7 @@ import static io.restassured.RestAssured.get;
  **/
 public class SourceRequest extends TestBase {
 
-    public static JSONObject getSrcJsonFromSwagger(String url)
-    {
-        init();
-        //使用配置文件的swagger地址
-        Response response = get(TestBase.prop.getProperty("swagger_address") + url);
-        return JSONUtil.parseObj(response.asPrettyString());
 
-    }
 
 }
 

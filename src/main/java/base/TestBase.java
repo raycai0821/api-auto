@@ -1,10 +1,14 @@
 package base;
 
 import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.lang.Console;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.util.Properties;
+
+import static io.restassured.RestAssured.get;
 
 /**
  * @author leifeng.cai
@@ -15,6 +19,7 @@ import java.util.Properties;
 public class TestBase {
 
     public static Properties prop;
+    public static JSONObject jsonObject;
 
     public static void init() {
         prop = new Properties();
@@ -24,7 +29,10 @@ public class TestBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        Console.log("Properties: {}", prop);
+        String swaggerUrl = prop.getProperty("swagger_address");
+        Response response = get(swaggerUrl + "/v2/api-docs");
+        System.out.println(response.asPrettyString());
+        jsonObject = JSONUtil.parseObj(response.asPrettyString());
     }
 
 
