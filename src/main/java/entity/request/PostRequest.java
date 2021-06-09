@@ -3,18 +3,17 @@ package entity.request;
 import lombok.Data;
 import org.springframework.http.HttpMethod;
 
-import java.util.Map;
-
 /**
  * @author leifeng.cai
  * @description
- * @time: 2021/6/8 16:52
+ * @time: 2021/6/9 10:12
  **/
+
 @Data
-public class GetRequest extends BaseReq {
+public class PostRequest extends BaseReq {
 
     @Override
     public HttpMethod getHttpMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.POST;
     }
 }

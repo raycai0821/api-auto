@@ -10,7 +10,6 @@ import java.util.Map;
 public class ReqHeadersHelper {
 
 
-
     public static void setHeaders(String headerName, String headerValue, Map<String, String> headersMap) {
         headersMap.put(headerName, headerValue);
     }

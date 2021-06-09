@@ -13,7 +13,7 @@ import java.util.Map;
 public class ReqParamsHelper {
 
 
-    public static void setParams(String paramName, String paramValue, Map<String, String> paramsMap ) {
+    public static void setParams(String paramName, String paramValue, Map<String, String> paramsMap) {
         paramsMap.put(paramName, paramValue);
     }
 
