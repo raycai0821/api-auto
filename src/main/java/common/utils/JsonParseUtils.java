@@ -19,12 +19,12 @@ public class JsonParseUtils extends TestBase {
      * 根据节点参数获取json节点数据
      *
      * @param jsonObject
-     * @param node
+     * @param nodeName
      * @return map
      */
-    public static Map JsonExtractByNode(JSONObject jsonObject, String node) {
+    public static Map JsonExtractByNode(JSONObject jsonObject, String nodeName) {
 
-        return jsonObject.get(node, Map.class);
+        return jsonObject.get(nodeName, Map.class);
 
     }
 
@@ -36,32 +36,45 @@ public class JsonParseUtils extends TestBase {
      */
 
     public static String getSchemaName(JSONObject jsonObject, String schemaNode) {
-        //获取sheme里的字段值
+        //获取schema里的字段值
         return from(jsonObject.toString()).getString(schemaNode);
     }
 
     /**
-     * 通过shema获取对应definiationd的json对象
+     * 通过schema获取对应definiation的json对象
      *
      * @param schemaName
      * @return
      */
 
-    public static JSONObject getSchemaDef(String schemaName) {
+    public static JSONObject getDefBySchema(String schemaName) {
         Map<String, JSONObject> defNodeMap = JsonParseUtils.JsonExtractByNode(jsonObject, "definitions");
         return defNodeMap.get(schemaName);
     }
 
     /**
-     *
-     * 获取definition中指定对象
-     * @param colName
+     * 通过schemaname获取definition中指定参数值
+     *返回字段值
+     * @param defNodeName
      * @param schemaName
-     * @return
+     * @return []
      */
-    public static JSONObject getDefData(String colName, String schemaName){
-        return (JSONObject)getSchemaDef(schemaName).getByPath(colName);
+    public static String[] getDefDataBySchema( String schemaName, String defNodeName) {
+        return new String[]{getDefBySchema(schemaName).getByPath(defNodeName).toString()};
     }
+
+
+    /**
+     * 通过schemaname获取definition中指定参数值
+     *返回json对象
+     * @param defNodeName
+     * @param schemaName
+     * @return []
+     */
+    public static JSONObject getDefJsonBySchema( String schemaName, String defNodeName) {
+        return (JSONObject) getDefBySchema(schemaName).getByPath(defNodeName);
+    }
+
 
     /**
      * 请求swagger，并将pathurl+schema进行返回,一个url对应一个schema

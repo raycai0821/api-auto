@@ -18,8 +18,11 @@ import static io.restassured.RestAssured.get;
  **/
 public class TestBase {
 
+
+
     public static Properties prop;
     public static JSONObject jsonObject;
+    public static Response response;
 
     public static void init() {
         prop = new Properties();
@@ -30,8 +33,7 @@ public class TestBase {
             e.printStackTrace();
         }
         String swaggerUrl = prop.getProperty("swagger_address");
-        Response response = get(swaggerUrl + "/v2/api-docs");
-        System.out.println(response.asPrettyString());
+        response = get(swaggerUrl + "/v2/api-docs");
         jsonObject = JSONUtil.parseObj(response.asPrettyString());
     }
 
