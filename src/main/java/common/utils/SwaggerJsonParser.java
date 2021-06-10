@@ -4,6 +4,7 @@ import entity.request.ReqHeader;
 import entity.request.ReqQuery;
 import io.swagger.models.*;
 import io.swagger.models.parameters.*;
+import io.swagger.models.properties.Property;
 import io.swagger.parser.SwaggerParser;
 
 import javax.jws.WebParam;
@@ -24,6 +25,7 @@ public class SwaggerJsonParser {
      */
     public static Map<String, String> parsePath(String swaggerDocString) {
         Swagger swagger = new SwaggerParser().parse(swaggerDocString);
+        Map<String, Model> defMap = swagger.getDefinitions();
         Map<String, Path> pathsmap = swagger.getPaths();
         List<ReqHeader> headerList = new ArrayList<>();
         List<ReqQuery> queryList = new ArrayList<>();
@@ -38,15 +40,15 @@ public class SwaggerJsonParser {
                 List<Parameter> params = operation.getParameters();
                 for (Parameter p : params) {
                     if (p instanceof QueryParameter) {
-                        QueryParameter qp = new QueryParameter();
+                        QueryParameter qp = (QueryParameter) p;
                         ReqQuery reqQuery = new ReqQuery();
-                        reqQuery.setFormat(qp.getName());
+                        reqQuery.setName(qp.getName());
                         reqQuery.setFormat(qp.getFormat());
                         reqQuery.setRequired(qp.getRequired());
                         reqQuery.setType(qp.getType());
                         queryList.add(reqQuery);
                     } else if (p instanceof HeaderParameter) {
-                        HeaderParameter hp = new HeaderParameter();
+                        HeaderParameter hp = (HeaderParameter) p;
                         ReqHeader reqHeader = new ReqHeader();
                         reqHeader.setHeaderName(hp.getName());
                         reqHeader.setRequired(hp.getRequired());
@@ -55,10 +57,13 @@ public class SwaggerJsonParser {
                         reqHeader.setHttpMethod(httpMethod.toString());
                         headerList.add(reqHeader);
                     } else if (p instanceof PathParameter) {
-                        PathParameter pp = new PathParameter();
+                        PathParameter pp = (PathParameter) p;
                     } else if (p instanceof BodyParameter) {
-                        BodyParameter bp = new BodyParameter();
-                        Model m = bp.getSchema();
+                        BodyParameter bp = (BodyParameter) p;
+                        Model def = defMap.get("BeneficiaryInsertRequest");
+                        Map<String, Property> pt = def.getProperties();
+                        Property pt1 = pt.get("11");
+
                         System.out.println("1");
                     }
                 }
