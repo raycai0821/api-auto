@@ -1,8 +1,10 @@
 package entity.request;
 
+import cn.hutool.json.JSONObject;
 import lombok.Data;
 import org.springframework.http.HttpMethod;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,13 +15,14 @@ import java.util.Map;
 @Data
 public abstract class BaseReq {
 
-    private String reqUrl;
 
-    private Map<String, String> headersMap;
+    private List<ReqHeader> reqHeaders;
 
-    private Map<String, String> paramsMap;
+    private List<ReqQuery> reqQueries;
 
-    private String requestBody;
+    private JSONObject jsonObject;
+
+
 
     public abstract HttpMethod getHttpMethod();
 

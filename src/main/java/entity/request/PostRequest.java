@@ -1,5 +1,6 @@
 package entity.request;
 
+import cn.hutool.json.JSONObject;
 import lombok.Data;
 import org.springframework.http.HttpMethod;
 
@@ -11,6 +12,8 @@ import org.springframework.http.HttpMethod;
 
 @Data
 public class PostRequest extends BaseReq {
+
+    private JSONObject requestBody;
 
     @Override
     public HttpMethod getHttpMethod() {

@@ -3,6 +3,8 @@ package testcase.generator;
 import entity.request.BaseReq;
 import io.restassured.response.Response;
 
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 
 /**
@@ -16,12 +18,7 @@ public class PostReqGenerator implements ReqGenerator {
     @Override
     public Response start(BaseReq baseReq) {
         Response response = null;
-        response = given()
-                .headers(baseReq.getHeadersMap())
-                .queryParams(baseReq.getParamsMap())
-                .body(baseReq.getRequestBody())
-                .when()
-                .get(baseReq.getReqUrl());
+
         return response;
     }
 }

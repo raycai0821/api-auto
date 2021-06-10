@@ -17,25 +17,25 @@ public class PostRequestBuilder implements Builder {
 
     private PostRequest postRequest = new PostRequest();
 
-    public PostRequestBuilder setParamsMap(Map<String, String> paramsMap) {
-        postRequest.setParamsMap(paramsMap);
-        return this;
-    }
-
-    public PostRequestBuilder setHeaderMap(Map<String, String> headersMap) {
-        postRequest.setHeadersMap(headersMap);
-        return this;
-    }
-
-    public PostRequestBuilder setReqUrl(String reqUrl) {
-        postRequest.setReqUrl(reqUrl);
-        return this;
-    }
-
-    public PostRequestBuilder setReqBody(String requestBody) {
-        postRequest.setReqUrl(requestBody);
-        return this;
-    }
+//    public PostRequestBuilder setParamsMap(Map<String, String> paramsMap) {
+//        postRequest.setParamsMap(paramsMap);
+//        return this;
+//    }
+//
+//    public PostRequestBuilder setHeaderMap(Map<String, String> headersMap) {
+//        postRequest.setHeadersMap(headersMap);
+//        return this;
+//    }
+//
+//    public PostRequestBuilder setReqUrl(String reqUrl) {
+//        postRequest.setReqUrl(reqUrl);
+//        return this;
+//    }
+//
+//    public PostRequestBuilder setReqBody(String requestBody) {
+//        postRequest.setReqUrl(requestBody);
+//        return this;
+//    }
 
 
     @Override

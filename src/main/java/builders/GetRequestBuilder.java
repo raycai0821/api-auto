@@ -18,20 +18,20 @@ public class GetRequestBuilder implements Builder {
 
     private GetRequest getRequest = new GetRequest();
 
-    public GetRequestBuilder setParamsMap(Map<String, String> paramsMap){
-        getRequest.setParamsMap(paramsMap);
-        return this;
-    }
-
-    public GetRequestBuilder setHeaderMap(Map<String, String> headersMap){
-        getRequest.setHeadersMap(headersMap);
-        return this;
-    }
-
-    public GetRequestBuilder setReqUrl(String reqUrl){
-        getRequest.setReqUrl(reqUrl);
-        return this;
-    }
+//    public GetRequestBuilder setParamsMap(Map<String, String> paramsMap){
+//        getRequest.setParamsMap(paramsMap);
+//        return this;
+//    }
+//
+//    public GetRequestBuilder setHeaderMap(Map<String, String> headersMap){
+//        getRequest.setHeadersMap(headersMap);
+//        return this;
+//    }
+//
+//    public GetRequestBuilder setReqUrl(String reqUrl){
+//        getRequest.setReqUrl(reqUrl);
+//        return this;
+//    }
 
     @Override
     public GetRequest build() {

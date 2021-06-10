@@ -25,30 +25,28 @@ public class test extends TestBase {
         init();
     }
 
+
+//    public void test1(){
+//        Map<String, String> headers = new HashMap<String, String>();
+//        headers.put("X-MemberCode", "MECN0163");
+//        headers.put("headers", "222333");
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("param","222");
+//        params.put("param2", "3333");
+//        //链式调用
+//        GetRequest getRequest = new GetRequestBuilder()
+//                .setParamsMap(params)
+//                .setHeaderMap(headers)
+//                .setReqUrl("http://api.st2.com/authorize")
+//                .build();
+//        GetReqGenerator getReqGenerator = new GetReqGenerator();
+//        getReqGenerator.start(getRequest);
+//
+//    }
+
     @Test
-    public void test1(){
-        Map<String, String> headers = new HashMap<String, String>();
-        headers.put("X-MemberCode", "MECN0163");
-        headers.put("headers", "222333");
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("param","222");
-        params.put("param2", "3333");
-
-        GetRequest getRequest = new GetRequestBuilder()
-                .setParamsMap(params)
-                .setHeaderMap(headers)
-                .setReqUrl("http://api.st2.com/authorize")
-                .build();
-        GetReqGenerator getReqGenerator = new GetReqGenerator();
-        getReqGenerator.start(getRequest);
-
-
-        System.out.println("test");
-    }
-
-
     public void test(){
-        Map paths = SwaggerJsonParser.parse(response.asPrettyString());
+        Map paths = SwaggerJsonParser.parsePath(response.asPrettyString());
 
         given()
                 .header("X-MemberCode","X-SecretKey")

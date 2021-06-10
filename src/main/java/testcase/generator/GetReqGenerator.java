@@ -13,17 +13,13 @@ import static io.restassured.RestAssured.given;
  **/
 public class GetReqGenerator implements ReqGenerator {
 
-
+    /**
+     * 根据req开启请求
+     */
     @Override
-    public  Response start(BaseReq baseReq) {
+    public Response start(BaseReq baseReq) {
         Response response = null;
-        given()
-                .headers(baseReq.getHeadersMap())
-                .queryParams(baseReq.getParamsMap())
-                .when()
-                .get(baseReq.getReqUrl())
-                .then()
-                .log().all();
+
 
         return response;
     }
