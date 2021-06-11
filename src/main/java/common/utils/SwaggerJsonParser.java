@@ -1,10 +1,13 @@
 package common.utils;
 
+import entity.request.ReqBodyField;
 import entity.request.ReqHeader;
 import entity.request.ReqQuery;
 import io.swagger.models.*;
 import io.swagger.models.parameters.*;
 import io.swagger.models.properties.Property;
+import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import io.swagger.parser.SwaggerParser;
 
 import javax.jws.WebParam;
@@ -29,7 +32,8 @@ public class SwaggerJsonParser {
         Map<String, Path> pathsmap = swagger.getPaths();
         List<ReqHeader> headerList = new ArrayList<>();
         List<ReqQuery> queryList = new ArrayList<>();
-
+        Map<String, ReqBodyField> bodyFieldMap = new HashMap<>();
+        Map<String, Map<String, ReqBodyField>> totalRequestMap = new HashMap<>();
         for (Map.Entry<String, Path> entry : pathsmap.entrySet()) {
             String url = entry.getKey();
             Path path = entry.getValue();
@@ -60,16 +64,26 @@ public class SwaggerJsonParser {
                         PathParameter pp = (PathParameter) p;
                     } else if (p instanceof BodyParameter) {
                         BodyParameter bp = (BodyParameter) p;
-                        Model def = defMap.get("BeneficiaryInsertRequest");
+                        RefModel schema = (RefModel) bp.getSchema();
+//                        String defPath = schema.getSimpleRef();
+                        String defPath = "BusinessOpenAcctDeclareRequest";
+                        Model def = defMap.get(defPath);
                         Map<String, Property> pt = def.getProperties();
-                        Property pt1 = pt.get("11");
+                        for (Map.Entry<String, Property> entry2 : pt.entrySet()) {
+                            String fieldName = entry2.getKey();
+                            Property property = entry2.getValue();
+//                            ReqBodyField reqBodyField = new ReqBodyField();
+                            DefRecursive.recursive(property, fieldName, defMap, bodyFieldMap, totalRequestMap);
 
-                        System.out.println("1");
+                            System.out.println("1");
+                        }
+
                     }
                 }
             }
+
+
         }
         return null;
     }
-
 }
