@@ -18,5 +18,7 @@ public class ReqBodyField {
 
     private String description;
 
+    private ReqBodyField belongsTo;
+
 
 }
